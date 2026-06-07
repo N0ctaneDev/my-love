@@ -18,14 +18,17 @@ export default function Home({ onNext }) {
         style={{
           zIndex: 1,
           background:
-            "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(180,80,120,0.10) 0%, transparent 70%)",
+            "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(180,80,120,0.90) 0%, transparent 70%)",
         }}
       />
 
       {/* Layer 1 — text content */}
       <div
         className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
-        style={{ zIndex: 2 }}
+        style={{ 
+          zIndex: 2,
+          height: "100%",
+        }}
       >
         {/* Big heading */}
         <h1
@@ -37,7 +40,6 @@ export default function Home({ onNext }) {
             lineHeight: 1.15,
             letterSpacing: "-0.01em",
             opacity: phase >= 1 ? 1 : 0,
-            transform: phase >= 2 ? "translateY(-2.8rem)" : "translateY(0)",
             transition: "opacity 1.2s ease, transform 1s cubic-bezier(0.34,1.56,0.64,1)",
           }}
         >
@@ -52,10 +54,10 @@ export default function Home({ onNext }) {
             color: "#c49aae",
             lineHeight: 1.8,
             maxWidth: "420px",
+            height: phase >= 2 ? "auto" : "0px",
             marginTop: "0.5rem",
             opacity: phase >= 2 ? 1 : 0,
-            transform: phase >= 2 ? "translateY(0)" : "translateY(1.2rem)",
-            transition: "opacity 1s ease 0.25s, transform 1s ease 0.25s",
+            transition: "opacity 1s ease 0.25s,height 1s ease 0.25s",
           }}
         >
           There's something I've been meaning to show you.

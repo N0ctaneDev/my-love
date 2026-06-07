@@ -84,7 +84,7 @@ export default function Confess({ navigate }) {
       <div className="relative z-10 flex flex-col items-center text-center px-6 gap-6">
         {/* Line 1 */}
         <h1
-          className="text-5xl md:text-7xl font-bold text-[#f2dde6] leading-tight"
+          className="text-[clamp(2rem, 10vh, 4rem)] font-bold text-[#f2dde6] leading-tight"
           style={{
             fontFamily: "Georgia, serif",
             opacity: phase >= 1 ? 1 : 0,

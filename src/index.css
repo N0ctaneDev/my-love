@@ -1,6 +1,6 @@
-*{border: 2px solid red;}
+/**{outline: 1.2px solid red;}*/
 
-
+@import "tailwindcss";
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -56,7 +56,7 @@
 body {
   margin: 3;
   max-height: 100svh;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 #root {

@@ -1,39 +1,84 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import EmojiBackground from "./EmojiBackground";
 import Home from "./pages/Home";
 import Memories from "./pages/Memories";
 import Confess from "./pages/Confess";
 
-function Page() {
-  const [page, setPage] = useState("home"); // "home" | "memories" | "confess" | "yes"
-  
-  const navigate = (route) => {
-    const map = {
-      "/memories": "memories",
-      "/confess":  "confess",
-      "/yes":      "yes",
-    };
-    setPage(map[route] ?? route.replace("/", "") ?? "home");
-  };
-  
-  if (page === "home")      return <Home     onNext={() => setPage("memories")} />;
-  if (page === "memories")  return <Memories onNext={() => setPage("confess")} />;
-  if (page === "confess")   return <Confess  navigate={navigate} />;
-  if (page === "yes")       return (
-    <div className="min-h-screen bg-[#0d0a0e] flex flex-col items-center justify-center text-center px-6 gap-6">
-      <h1 className="text-6xl text-[#f2dde6]" style={{ fontFamily: "Georgia, serif" }}>
+const PAGES = ["home", "memories", "confess", "yes"];
+
+function Yes() {
+  return (
+    <div style={{ 
+      width: "100%", height: "100%",
+      display: "flex", flexDirection: "column",
+      alignItems: "center", justifyContent: "center",
+      textAlign: "center", gap: "1.5rem", padding: "1.5rem",
+      background: "transparent",
+    }}>
+      <h1 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(2.5rem,8vw,4rem)", color: "#f2dde6", position: "relative", zIndex: 1 }}>
         I knew it 🌹
       </h1>
-      <p className="text-[#c49aae] text-lg" style={{ fontFamily: "Georgia, serif" }}>
+      <p style={{ fontFamily: "Georgia, serif", fontSize: "clamp(1rem,2vw,1.2rem)", color: "#c49aae", position: "relative", zIndex: 1 }}>
         This is the happiest I've ever been.
       </p>
     </div>
   );
 }
 
+const FADE_MS = 600; // fade duration in ms
+
 export default function App() {
+  const [current, setCurrent]     = useState("home"); // fully visible page
+  const [next,    setNext]        = useState(null);   // page waiting to enter
+  const [phase,   setPhase]       = useState("idle"); // "idle" | "out" | "in"
+  const timerRef = useRef(null);
+
+  const navigate = (to) => {
+    if (to === current || phase !== "idle") return;
+    clearTimeout(timerRef.current);
+    setNext(to);
+    setPhase("out"); // start fading current out
+    timerRef.current = setTimeout(() => {
+      setCurrent(to); // swap page (next is now current, but still opacity 0)
+      setNext(null);
+      setPhase("in");
+      timerRef.current = setTimeout(() => {
+        setPhase("idle");
+      }, FADE_MS);
+    }, FADE_MS);
+  };
+
+  useEffect(() => () => clearTimeout(timerRef.current), []);
+
+  // opacity of the single rendered page
+  const opacity = phase === "out" ? 0 : 1;
+
+  const pageProps = {
+    home:     { onNext: () => navigate("memories") },
+    memories: { onNext: () => navigate("confess")  },
+    confess:  { navigate: (route) => {
+      const map = { "/memories": "memories", "/confess": "confess", "/yes": "yes" };
+      navigate(map[route] ?? route.replace("/", ""));
+    }},
+    yes: {},
+  };
+
+  const PageMap = { home: Home, memories: Memories, confess: Confess, yes: Yes };
+  const ActivePage = PageMap[current];
+
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-[#0d0a0e]">
-      <Page />
+    <div style={{ position: "relative", width: "100vw", height: "100vh", overflow: "hidden", background: "transparent" }}>
+      <div
+        style={{
+          position: "absolute", inset: 0,
+          opacity,
+          transition: `opacity ${FADE_MS}ms ease`,
+          // pre-render keeps components mounted so their internal state/animations
+          // aren't destroyed — only visibility changes
+        }}
+      >
+        <ActivePage {...pageProps[current]} />
+      </div>
     </div>
   );
 }

@@ -168,17 +168,13 @@ export default function Memories({ onNext }) {
       <div
         style={{
           position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
-          background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(13,10,14,0.55) 20%, rgba(13,10,14,0.82) 100%)",
+          background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(13,10,14,0.05) 20%, rgba(13,10,14,0.52) 100%)",
         }}
       />
 
       {/* ── Layer 2: message box ── */}
-      <div
-        style={{
-          position: "absolute", inset: 0, zIndex: 2,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          padding: "0 1rem",
-        }}
+      <div className="absolute top-5/12 left-1/2 -translate-1/2 flex items-center justify-center"
+        style={{ zIndex: 2,padding: "0 1rem"}}
       >
         <div
           style={{
@@ -201,7 +197,7 @@ export default function Memories({ onNext }) {
           {/* counter */}
           <p style={{
             margin: 0,
-            fontSize: "clamp(0.6rem, 1.2vw, 0.75rem)",
+            fontSize: "clamp(0.6rem, 1.2vh, 1.5rem)",
             color: "#9a6070",
             textTransform: "uppercase",
             letterSpacing: "0.22em",
@@ -224,7 +220,7 @@ export default function Memories({ onNext }) {
             <h2 style={{
               margin: "0 0 clamp(0.4rem, 1vh, 0.8rem) 0",
               fontFamily: "Georgia, serif",
-              fontSize: "clamp(1.1rem, 3vw, 1.55rem)",
+              fontSize: "clamp(1.2rem, 3vh, 1.85rem)",
               fontWeight: 700,
               color: "#f2dde6",
               lineHeight: 1.25,
@@ -234,7 +230,7 @@ export default function Memories({ onNext }) {
             <p style={{
               margin: 0,
               fontFamily: "Georgia, serif",
-              fontSize: "clamp(0.82rem, 1.8vw, 1.05rem)",
+              fontSize: "clamp(1rem, 1.8vw, 1.05rem)",
               color: "#c49aae",
               lineHeight: 1.75,
             }}>

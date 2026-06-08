@@ -67,7 +67,7 @@ export default function App() {
   const ActivePage = PageMap[current];
 
   return (
-    <div style={{ position: "relative", width: "100vw", height: "100vh", overflow: "hidden", background: "transparent" }}>
+    <div style={{ position: "relative", width: "100vw", height: "100dvh", overflow: "hidden", background: "transparent" }}>
       <div
         style={{
           position: "absolute", inset: 0,

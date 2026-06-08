@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import "../../__config__";
+import { _HeroPara, _HeroTitle, _themeColor } from "../../__config__";
 
-const COLOR = "#b06080";
+const COLOR = _themeColor;
 
 export default function Home({ onNext }) {
   const [phase, setPhase] = useState(0);
@@ -19,7 +21,7 @@ export default function Home({ onNext }) {
         className="absolute inset-0 pointer-events-none"
         style={{
           zIndex: 1,
-          background: `radial-gradient(ellipse 60% 50% at 50% 50%, ${COLOR}22 0%, transparent 70%)`,
+          background: `radial-gradient(ellipse clamp(100px, 100%, 800px) min(70vh, 500px) at 50% 50%, ${COLOR}40 50%, transparent 80%)`,
         }}
       />
 
@@ -35,13 +37,13 @@ export default function Home({ onNext }) {
             height: "min(70vh, 500px)",
             border: `1px solid ${COLOR}44`,
             borderRadius: "28px",
-            background: `color-mix(in srgb, ${COLOR} 6%, #0d0a0e)`,
-            backdropFilter: "blur(20px)",
+            background: `rgb( from color-mix(in srgb, ${COLOR} 16%, #0d0a0e) r g b / 0.67`,
+            backdropFilter: "blur(7px)",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            padding: "clamp(1.5rem, 4vw, 3rem)",
+            padding: "clamp(20px, 1.5rem, 30px)",
             boxSizing: "border-box",
             gap: "0",
             overflow: "hidden",
@@ -62,7 +64,7 @@ export default function Home({ onNext }) {
               transition: "opacity 1.2s ease",
             }}
           >
-            Hey, you.
+            {_HeroTitle}
           </h1>
 
           {/* para — max-height trick for 0→auto */}
@@ -85,23 +87,20 @@ export default function Home({ onNext }) {
                 textAlign: "center",
               }}
             >
-              There's something I've been meaning to show you.
-              <br />
-              Something that lives in my chest every single day.
-              <br /><br />
-              <span style={{ color: `color-mix(in srgb, ${COLOR} 25%, #e8c4d0)` }}>
+              {_HeroPara} <br></br>
+              <span className="" style={{ color: `color-mix(in srgb, ${COLOR} 25%, #e8c4d0)` }}>
                 Take a moment. This is just for you.
               </span>
             </p>
           </div>
 
           {/* button — same max-height reveal */}
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-2.5"
+          <div className="mt-6"
             style={{
-              maxHeight: phase >= 2 ? "100px" : "0px",
+              scale: phase >= 2 ? 1 : 0,
               opacity: phase >= 2 ? 1 : 0,
               overflow: "hidden",
-              transition: "max-height 1s ease 0.4s, opacity 0.9s ease 0.5s",
+              transition: "scale 1s ease 0.4s, opacity 0.9s ease 0.5s",
             }}
           >
             <button

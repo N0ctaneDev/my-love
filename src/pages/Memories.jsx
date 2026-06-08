@@ -1,49 +1,16 @@
 import { useState, useEffect, useRef } from "react";
+import { _MemoryGallerySpeed, _MemoryMessages, _themeColor } from "../../__config__";
 
-const MESSAGES = [
-  {
-    title: "The Beginning",
-    content:
-      "I remember the exact moment I knew — not a grand gesture, just a quiet Tuesday, and you laughed at something small. And that was it. That was the beginning of everything.",
-  },
-  {
-    title: "The Little Things",
-    content:
-      "The way you hold your mug with both hands. How you get excited about clouds. The specific hum you do when you're thinking. I've catalogued all of it without even trying.",
-  },
-  {
-    title: "When You Were Sad",
-    content:
-      "I hated that I couldn't fix it. But I loved that you let me sit with you in it. That kind of trust — I don't take it lightly.",
-  },
-  {
-    title: "Every Ordinary Day",
-    content:
-      "Nothing special happened. We just existed in the same space. And somehow, those are the days I replay the most.",
-  },
-  {
-    title: "What I Never Said",
-    content:
-      "I wanted to say it a hundred times but the moment always felt too small or too big. So I saved it. For here. For now.",
-  },
-  {
-    title: "Something Ridiculous",
-    content:
-      "That one time we laughed so hard neither of us could speak. I don't even remember what it was about. I just remember your face.",
-  },
-  {
-    title: "Right Now",
-    content:
-      "You're reading this, and somehow that feels like the bravest thing I've ever done — handing you something real and watching you open it.",
-  },
-];
+const COLOR = _themeColor;
+
+const MESSAGES = _MemoryMessages;
 
 // Horizontal scrolling row — images scroll left or right
 function GalleryRow({ images, direction }) {
   const rowRef = useRef(null);
   const offset = useRef(0);
   const rafRef = useRef(null);
-  const speed = direction === "right" ? 0.5 : -0.5;
+  const speed = direction === "right" ? _MemoryGallerySpeed : -_MemoryGallerySpeed;
  
   useEffect(() => {
     const el = rowRef.current;
@@ -152,28 +119,41 @@ export default function Memories({ onNext }) {
     <>
       {/* ── Layer 0: background ── */}
       {useGallery ? (
-        <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", opacity: 1, zIndex: 0 }}>
+        <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent:"space-between",opacity: 1, zIndex: 0 }}>
           {/* top row — scrolls left, exactly 50vh */}
-          <div style={{ height: "50vh", width: "100%" }}>
+          <div style={{ height: "40vh", width: "100%" }}>
             <GalleryRow images={topImages.length ? topImages : images.slice(0, Math.ceil(images.length / 2))} direction="left" />
           </div>
           {/* bottom row — scrolls right, exactly 50vh */}
-          <div style={{ height: "50vh", width: "100%" }}>
+          <div style={{ height: "40vh", width: "100%" }}>
             <GalleryRow images={botImages.length ? botImages : images.slice(Math.ceil(images.length / 2))} direction="right" />
           </div>
+          <div style={{
+            position: "absolute", inset: 0, pointerEvents: "none",zIndex: 1, height: "100%",
+            background: "linear-gradient(to bottom, transparent 25dvh, #0d0a0e 40dvh,  #0d0a0e 60dvh, transparent 75dvh)",
+          }} />
         </div>
       ) : null}
 
+      {/* radial glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          zIndex: 1,
+          background: `radial-gradient(ellipse clamp(300px, 88vw, 520px) 50% at 50% 50%, ${COLOR}22 50%, transparent 80%)`,
+        }}
+      />
+      
       {/* ── Layer 1: dark vignette overlay ── */}
       <div
         style={{
-          position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
+          position: "absolute", inset: 0, zIndex: 1.5, pointerEvents: "none",
           background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(13,10,14,0.05) 20%, rgba(13,10,14,0.52) 100%)",
         }}
       />
 
       {/* ── Layer 2: message box ── */}
-      <div className="absolute top-5/12 left-1/2 -translate-1/2 flex items-center justify-center"
+      <div className="absolute inset-0 flex items-center justify-center"
         style={{ zIndex: 2,padding: "0 1rem"}}
       >
         <div
@@ -181,24 +161,25 @@ export default function Memories({ onNext }) {
             // width: clamp 300px → 90vw → 520px
             width: "clamp(300px, 88vw, 520px)",
             // height: clamp 200px → 55vh → 600px
-            height: "clamp(200px, 55vh, 600px)",
+            height: "clamp(360px, auto, 35vh)",
             borderRadius: "24px",
-            border: "1px solid rgba(92,46,66,0.6)",
-            background: "rgba(30,14,22,0.84)",
-            backdropFilter: "blur(28px)",
+            border: `1px solid ${COLOR}44`,
+            background: `rgb( from color-mix(in srgb, ${COLOR} 18%, #0d0a0e) r g b / 0.75`,
+            backdropFilter: "blur(7px)",
             padding: "clamp(1.2rem, 4vw, 2.2rem)",
             display: "flex",
             flexDirection: "column",
             gap: "clamp(0.6rem, 1.5vh, 1.2rem)",
             boxSizing: "border-box",
             overflow: "hidden",
+            transition: "height 2s ease",
           }}
         >
           {/* counter */}
           <p style={{
             margin: 0,
             fontSize: "clamp(0.6rem, 1.2vh, 1.5rem)",
-            color: "#9a6070",
+            color: `color-mix(in srgb, ${COLOR} 40%, #c49aae)`,
             textTransform: "uppercase",
             letterSpacing: "0.22em",
             fontWeight: 500,
@@ -222,7 +203,7 @@ export default function Memories({ onNext }) {
               fontFamily: "Georgia, serif",
               fontSize: "clamp(1.2rem, 3vh, 1.85rem)",
               fontWeight: 700,
-              color: "#f2dde6",
+              color: `color-mix(in srgb, ${COLOR} 15%, #f2dde6)`,
               lineHeight: 1.25,
             }}>
               {MESSAGES[msgIdx].title}
@@ -231,7 +212,7 @@ export default function Memories({ onNext }) {
               margin: 0,
               fontFamily: "Georgia, serif",
               fontSize: "clamp(1rem, 1.8vw, 1.05rem)",
-              color: "#c49aae",
+              color: `color-mix(in srgb, ${COLOR} 25%, #e8c4d0)`,
               lineHeight: 1.75,
             }}>
               {MESSAGES[msgIdx].content}
@@ -244,16 +225,19 @@ export default function Memories({ onNext }) {
               onClick={() => changeMsg(-1)}
               disabled={msgIdx === 0}
               style={{
-                padding: "0.45rem 1.2rem",
+                marginTop: "0",
+                padding: "0.45rem 1rem",
                 borderRadius: "9999px",
-                border: "1px solid #5c2e42",
+                border: `1px solid ${COLOR}`,
                 background: "transparent",
-                color: "#c49aae",
+                color: `color-mix(in srgb, ${COLOR} 10%, #f2dde6)`,
                 fontFamily: "Georgia, serif",
-                fontSize: "clamp(0.75rem, 1.5vw, 0.9rem)",
+                fontSize: "clamp(0.55rem, 1.5vw, 0.7rem)",
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
                 cursor: msgIdx === 0 ? "not-allowed" : "pointer",
                 opacity: msgIdx === 0 ? 0.2 : 1,
-                transition: "background 0.2s",
+                transition: "background 0.3s",
               }}
               onMouseEnter={(e) => { if (msgIdx !== 0) e.currentTarget.style.background = "rgba(92,46,66,0.3)"; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
@@ -265,18 +249,21 @@ export default function Memories({ onNext }) {
               <button
                 onClick={onNext}
                 style={{
-                  padding: "0.45rem 1.4rem",
+                  marginTop: "0",
+                  padding: "0.45rem 1rem",
                   borderRadius: "9999px",
-                  border: "1px solid #d08090",
-                  background: "rgba(176,96,128,0.8)",
-                  color: "#fce8f0",
+                  border: `1px solid ${COLOR}`,
+                  background: `color-mix(in srgb, ${COLOR} 70%, #111)`,
+                  color: `color-mix(in srgb, ${COLOR} 10%, #fff)`,
                   fontFamily: "Georgia, serif",
-                  fontSize: "clamp(0.75rem, 1.5vw, 0.9rem)",
+                  fontSize: "clamp(0.55rem, 1.5vw, 0.7rem)",
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
                   cursor: "pointer",
                   transition: "background 0.2s",
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = "#c0708a"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(176,96,128,0.8)"; }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = `color-mix(in srgb, ${COLOR} 80%, #555)`; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = `color-mix(in srgb, ${COLOR} 70%, #111)`; }}
               >
                 Continue →
               </button>
@@ -284,13 +271,16 @@ export default function Memories({ onNext }) {
               <button
                 onClick={() => changeMsg(1)}
                 style={{
-                  padding: "0.45rem 1.2rem",
+                  marginTop: "0",
+                  padding: "0.45rem 1rem",
                   borderRadius: "9999px",
-                  border: "1px solid #5c2e42",
+                  border: `1px solid ${COLOR}`,
                   background: "transparent",
-                  color: "#c49aae",
+                  color: `color-mix(in srgb, ${COLOR} 10%, #f2dde6)`,
                   fontFamily: "Georgia, serif",
-                  fontSize: "clamp(0.75rem, 1.5vw, 0.9rem)",
+                  fontSize: "clamp(0.55rem, 1.5vw, 0.7rem)",
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
                   cursor: "pointer",
                   transition: "background 0.2s",
                 }}

@@ -1,8 +1,11 @@
 import { useEffect, useRef } from "react";
+import { _bgEmoji, _themeColor } from "../__config__";
 
-const EMOJI = "🌸";
-const COUNT = 20;
+const EMOJI = _bgEmoji;
+const COUNT = 40;
 const SIZE_RANGE = [0.06, 0.21]; // as fraction of viewport height
+
+const COLOR = _themeColor;
 
 function randomBetween(a, b) {
   return a + Math.random() * (b - a);
@@ -85,6 +88,7 @@ export default function EmojiBackground() {
         height: "100%",
         pointerEvents: "none",
         zIndex: 0,
+        background: `color-mix(in srgb, ${COLOR} 26%, #111)`,
       }}
     />
   );

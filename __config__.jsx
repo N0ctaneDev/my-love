@@ -5,6 +5,10 @@
 // and list file names in index.json in /public/memories/index.json
 
 // u can put emojis in any text, except the _ConfessFinalText
+
+// !!!!-- REPLACE THIS WITH UR REPO FIRST --!!!
+export const _REPO = "my-love"
+
 export const _name = "Dear my love";   // tab/site name
 
 export const _dearName = "My Love";  // name of the person u wanna gift to

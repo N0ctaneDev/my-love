@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { _MemoryGallerySpeed, _MemoryMessages, _themeColor } from "../../__config__";
+import { _MemoryGallerySpeed, _MemoryMessages, _REPO, _themeColor } from "../../__config__";
 
 const COLOR = _themeColor;
 
@@ -88,11 +88,11 @@ export default function Memories({ onNext }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    fetch("/my-love/memories/index.json")
+    fetch(`/${_REPO}/memories/index.json`)
       .then((r) => r.json())
       .then((files) => {
         if (Array.isArray(files) && files.length >= 7) {
-          setImages(files.map((f) => `/my-love/memories/${f}`));
+          setImages(files.map((f) => `/${_REPO}/memories/${f}`));
         }
         setLoaded(true);
       })

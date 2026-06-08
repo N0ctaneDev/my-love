@@ -239,7 +239,7 @@ export default function Memories({ onNext }) {
                 opacity: msgIdx === 0 ? 0.2 : 1,
                 transition: "background 0.3s",
               }}
-              onMouseEnter={(e) => { if (msgIdx !== 0) e.currentTarget.style.background = "rgba(92,46,66,0.3)"; }}
+              onMouseEnter={(e) => { if (msgIdx !== 0) e.currentTarget.style.background = `color-mix(in srgb, ${COLOR} 46%, #0d0a0e)`; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
             >
               ← Prev
@@ -284,7 +284,7 @@ export default function Memories({ onNext }) {
                   cursor: "pointer",
                   transition: "background 0.2s",
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(92,46,66,0.3)"; }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = `color-mix(in srgb, ${COLOR} 46%, #0d0a0e)`; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
               >
                 Next →

@@ -1,14 +1,10 @@
 import { useState, useEffect, useRef } from "react";
+import { _ConfessButtons, _ConfessEmoji, _ConfessFinalText, _ConfessRevealText, _themeColor } from "../../__config__";
 
 // ── Button config ────────────────────────────────────────────────────────────
 // clickable: true  → clicking redirects to `url`
 // clickable: false → btn escapes the cursor (TikTok dodge trend)
-const BUTTONS = [
-  { id: "btn_yes",   text: "Yes, always 💕",  clickable: true,  url: "/yes"   },
-  { id: "btn_no",    text: "No way",           clickable: false, url: ""       },
-  { id: "btn_maybe", text: "Maybe... 👀",      clickable: false, url: ""       },
-];
-
+const BUTTONS = _ConfessButtons
 function DodgeButton({ text }) {
   const btnRef = useRef(null);
   const pos = useRef({ x: null, y: null });
@@ -44,8 +40,12 @@ function DodgeButton({ text }) {
       onMouseEnter={dodge}
       onMouseMove={dodge}
       onTouchStart={dodge}
-      className="px-6 py-3 rounded-full border border-[#5c2e42] text-[#c49aae] text-sm cursor-default select-none opacity-70"
-      style={{ transition: "transform 0.18s cubic-bezier(0.34,1.56,0.64,1)", fontFamily: "Georgia, serif" }}
+      className="px-6 py-3 rounded-full border  text-[#c49aae] text-sm cursor-default select-none opacity-70"
+      style={{
+        transition: "transform 0.18s cubic-bezier(0.34,1.56,0.64,1)",
+        fontFamily: "Georgia, serif",
+        border: `2px solid color-mix(in srgb, ${_themeColor} 16%, #0d0a0e)`
+      }}
     >
       {text}
     </button>
@@ -76,7 +76,8 @@ export default function Confess({ navigate }) {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse 55% 45% at 50% 50%, rgba(180,80,120,0.15) 0%, transparent 70%)",
+          background: `radial-gradient(ellipse 55% 45% at 50% 50%,
+            color-mix(in srgb, ${_themeColor} 86%, #0d0a0e) 0%, transparent 70%)`,
           animation: "pulseGlow 4s ease-in-out infinite",
         }}
       />
@@ -92,7 +93,7 @@ export default function Confess({ navigate }) {
             transition: "opacity 1.1s ease, transform 1s cubic-bezier(0.34,1.56,0.64,1)",
           }}
         >
-          So, will you...
+          {_ConfessRevealText}
         </h1>
 
         {/* Line 2 */}
@@ -100,16 +101,21 @@ export default function Confess({ navigate }) {
           className="text-5xl md:text-7xl font-bold leading-tight"
           style={{
             fontFamily: "Georgia, serif",
-            background: "linear-gradient(135deg, #f2dde6 0%, #d08090 50%, #b06080 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
             opacity: phase >= 2 ? 1 : 0,
             transform: phase >= 2 ? "translateY(0)" : "translateY(1.5rem)",
             transition: "opacity 1.2s ease 0.1s, transform 1.2s cubic-bezier(0.34,1.56,0.64,1) 0.1s",
           }}
         >
-          Be mine? 🌹
+          <span style={{
+            background: `linear-gradient(135deg,
+            color-mix(in srgb, ${_themeColor} 16%, #fff) 0%,
+            color-mix(in srgb, ${_themeColor} 76%, #fff) 100%)`,
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            transition: "opacity 1.2s ease 0.1s, transform 1.2s cubic-bezier(0.34,1.56,0.64,1) 0.1s",
+          }}> {_ConfessFinalText} </span>
+          {_ConfessEmoji}
         </h1>
 
         {/* Buttons */}
@@ -129,8 +135,10 @@ export default function Confess({ navigate }) {
                 className="px-8 py-3 rounded-full text-sm text-[#fce8f0] active:scale-95 transition-all"
                 style={{
                   fontFamily: "Georgia, serif",
-                  background: "linear-gradient(135deg, #b06080, #8a3a5a)",
-                  border: "1px solid #d08090",
+                  background: `linear-gradient(135deg,
+                  color-mix(in srgb, ${_themeColor} 66%, #0d0a0e),
+                  color-mix(in srgb, ${_themeColor} 46%, #0d0a0e))`,
+                  border: `1px solid color-mix(in srgb, ${_themeColor} 66%, #fff)`,
                   letterSpacing: "0.05em",
                 }}
               >
@@ -145,8 +153,8 @@ export default function Confess({ navigate }) {
 
       <style>{`
         @keyframes pulseGlow {
-          0%, 100% { opacity: 0.7; }
-          50% { opacity: 1; }
+          0%, 100% { opacity: 0.2; }
+          50% { opacity: 0.3; }
         }
       `}</style>
     </div>

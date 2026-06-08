@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import EmojiBackground from "./EmojiBackground";
 import Home from "./pages/Home";
 import Memories from "./pages/Memories";
 import Confess from "./pages/Confess";
+import { _FinalCompliment, _FinalText, _name, _themeColor } from "../__config__";
 
-const PAGES = ["home", "memories", "confess", "yes"];
 
 function Yes() {
   return (
@@ -15,11 +14,11 @@ function Yes() {
       textAlign: "center", gap: "1.5rem", padding: "1.5rem",
       background: "transparent",
     }}>
-      <h1 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(2.5rem,8vw,4rem)", color: "#f2dde6", position: "relative", zIndex: 1 }}>
-        I knew it 🌹
+      <h1 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(2.5rem,8vw,4rem)", color: `color-mix(in srgb, ${_themeColor} 26%, #fff)`, position: "relative", zIndex: 1 }}>
+        {_FinalText}
       </h1>
-      <p style={{ fontFamily: "Georgia, serif", fontSize: "clamp(1rem,2vw,1.2rem)", color: "#c49aae", position: "relative", zIndex: 1 }}>
-        This is the happiest I've ever been.
+      <p style={{ fontFamily: "Georgia, serif", fontSize: "clamp(1rem,2vw,1.2rem)", color: `color-mix(in srgb, ${_themeColor} 46%, #fff)`, position: "relative", zIndex: 1 }}>
+        {_FinalCompliment}
       </p>
     </div>
   );
@@ -66,7 +65,14 @@ export default function App() {
   const PageMap = { home: Home, memories: Memories, confess: Confess, yes: Yes };
   const ActivePage = PageMap[current];
 
-  return (
+
+  useEffect(() => {
+      document.title = _name;
+    }, []);
+  
+  return (<>
+    <title>${_name}</title>
+    
     <div style={{ position: "relative", width: "100vw", height: "100dvh", overflow: "hidden", background: "transparent" }}>
       <div
         style={{
@@ -79,6 +85,10 @@ export default function App() {
       >
         <ActivePage {...pageProps[current]} />
       </div>
+      <p className="absolute bottom-0 right-0 z-50 text-indigo-200 text-[0.7rem]">Made by
+        <a href="https://github.com/N0ctaneDev" target="_blank" style={{color: `color-mix(in srgb, ${_themeColor} 56%, #fff)`}}> N0ctaneDev</a> &
+        <a href="https://github.com/GamesOfNamanInc" target="_blank" style={{color: `color-mix(in srgb, ${_themeColor} 56%, #fff)`}}> GamesOfNamanInc </a>
+      </p>
     </div>
-  );
+  </>);
 }

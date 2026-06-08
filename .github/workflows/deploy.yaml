@@ -26,30 +26,8 @@ jobs:
               run: npm ci
             - name: Build Project
               run: npm run build
-            - name: Upload artifacts
-              uses: actions/upload-artifact@v6
+            - name: Deploy 🚀
+              uses: JamesIves/github-pages-deploy-action@v4
               with:
-                  name: "github-pages-deployed"
-                  path: dist
-                  compression-level: 0
-                  include-hidden-files: true
-                  overwrite: true
-    deploy:
-        needs: build
-        permissions:
-            contents: write
-            pages: write
-            id-token: write
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout PROD BRANCH
-              uses: actions/checkout@v5
-              with:
-                  ref: 'deployed-website'
-            - name: Download Artifacts
-              uses: actions/download-artifact@v7
-              with:
-                  name: "github-pages-deployed"
-                  path: ./
-            - name: Push the changes
-              uses: stefanzweifel/git-auto-commit-action@v7
+                clean: true
+                folder: dist

@@ -30,21 +30,13 @@ Everything that matters — names, colors, messages, photos — lives in one fil
 ### Step 1 — Create your own repo from this template
 
 1. Click **"Use this template"** → **"Create a new repository"** at the top of this page.
-2. On the next screen, make sure to check **"Include all branches"** — this is important. The `deployed-website` branch is what GitHub Pages will serve from.
-3. Give your repo any name you like (e.g. `for-her`, `surprise`, `hey-you`).
-4. Set visibility to **Private** if you want to keep it secret until you're ready. *(You can make it public later.)*
-5. Click **"Create repository"**.
-
-### Step 2 — Enable GitHub Pages
-
-1. Go to your new repo → **Settings** → **Pages** (in the left sidebar under *Code and automation*).
-2. Under **"Build and deployment"**, set the source to **"Deploy from a branch"**.
-3. Set the branch to **`deployed-website`** and folder to **`/ (root)`**.
-4. Click **Save**.
+2. Give your repo any name you like (e.g. `for-her`, `surprise`, `hey-you`).
+3. Set visibility to **Private** if you want to keep it secret until you're ready. *(You can make it public later.)*
+4. Click **"Create repository"**.
 
 Your site will be live at `https://<your-username>.github.io/<repo-name>` within a minute or two after your first push.
 
-### Step 3 — Personalize `__config__.jsx`
+### Step 2 — Personalize `__config__.jsx`
 
 Open `__config__.jsx` at the root of the repo. This is the only file you need to edit.
 
@@ -81,10 +73,12 @@ Here's a full reference for every option:
 content: `I still think about that day, ${_dearName}.`
 ```
 
-### Step 4 — Add memory photos
+### Step 3 — Add memory photos
 
 1. Put your photos inside `/public/memories/`.
 2. Edit `/public/memories/index.json` to list the filenames:
+
+use compressed (png) and smaller images for faster load
 
 ```json
 ["photo1.jpg", "us_at_beach.png", "that_one_night.jpg"]

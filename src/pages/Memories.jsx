@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { _MemoryGallerySpeed, _MemoryMessages, _REPO, _themeColor } from "../../__config__";
 
 const COLOR = _themeColor;
-
+const Repo = _REPO;
 const MESSAGES = _MemoryMessages;
 
 // Horizontal scrolling row — images scroll left or right
@@ -88,11 +88,11 @@ export default function Memories({ onNext }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    fetch(`/${_REPO}/memories/index.json`)
+    fetch(`/${Repo}/memories/index.json`)
       .then((r) => r.json())
       .then((files) => {
         if (Array.isArray(files) && files.length >= 7) {
-          setImages(files.map((f) => `/${_REPO}/memories/${f}`));
+          setImages(files.map((f) => `/${Repo}/memories/${f}`));
         }
         setLoaded(true);
       })

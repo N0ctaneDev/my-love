@@ -74,3 +74,5 @@ export const _ConfessButtons = [
 // u can put emojis in these 2
 export const _FinalText = "I knew It !! 😭"
 export const _FinalCompliment = "It's the happiest i have ever been !! ❤️‍🩹"
+export const _FinalGif = "cute" // [flower, bear, cute, crackers]
+// the gifs are in /public

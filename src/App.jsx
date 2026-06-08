@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import Home from "./pages/Home";
 import Memories from "./pages/Memories";
 import Confess from "./pages/Confess";
-import { _FinalCompliment, _FinalText, _name, _themeColor } from "../__config__";
+import { _FinalCompliment, _FinalText, _name, _REPO, _themeColor, _FinalGif } from "../__config__";
 
 
 function Yes() {
@@ -14,6 +14,15 @@ function Yes() {
       textAlign: "center", gap: "1.5rem", padding: "1.5rem",
       background: "transparent",
     }}>
+      <img
+        src={`/${_REPO}/${_FinalGif}.gif`}
+        alt=""
+        style={{
+          width: "clamp(120px, 30vw, 220px)",
+          height: "auto",
+          borderRadius: "1rem",
+        }}
+      />
       <h1 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(2.5rem,8vw,4rem)", color: `color-mix(in srgb, ${_themeColor} 26%, #fff)`, position: "relative", zIndex: 1 }}>
         {_FinalText}
       </h1>

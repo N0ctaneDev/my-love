@@ -74,6 +74,7 @@ Here's a full reference for every option:
 | `_ConfessButtons` | The three response buttons (yes/no/maybe) |
 | `_FinalText` | What shows when they say yes |
 | `_FinalCompliment` | The line below it |
+| `_FinalGif` | A GIF shown on top of those texts |
 
 **Tip:** You can use `_dearName` inside any string using template literals:
 ```js
@@ -90,6 +91,7 @@ content: `I still think about that day, ${_dearName}.`
 ```
 
 The gallery will pick them up automatically in that order.
+> it needs atleast 7 images, or else no gallery, only the emoji BG
 
 ### Step 5 — Push and wait
 

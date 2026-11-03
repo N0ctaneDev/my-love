@@ -82,7 +82,7 @@ export default function App() {
   return (<>
     <title>${_name}</title>
     
-    <div style={{ position: "relative", width: "100vw", height: "100dvh", overflow: "hidden", background: "transparent" }}>
+    <div style={{ position: "relative", width: "100dvw", height: "100dvh", overflow: "hidden", background: "transparent" }}>
       <div
         style={{
           position: "absolute", inset: 0,
@@ -93,11 +93,11 @@ export default function App() {
         }}
       >
         <ActivePage {...pageProps[current]} />
+        <p className="absolute bottom-0 right-0 z-50 text-indigo-200 text-[0.7rem]">Made by
+          <a href="https://github.com/N0ctaneDev" target="_blank" style={{color: `color-mix(in srgb, ${_themeColor} 56%, #fff)`}}> N0ctaneDev</a> &
+          <a href="https://github.com/GamesOfNamanInc" target="_blank" style={{color: `color-mix(in srgb, ${_themeColor} 56%, #fff)`}}> GamesOfNamanInc </a>
+        </p>
       </div>
-      <p className="absolute bottom-0 right-0 z-50 text-indigo-200 text-[0.7rem]">Made by
-        <a href="https://github.com/N0ctaneDev" target="_blank" style={{color: `color-mix(in srgb, ${_themeColor} 56%, #fff)`}}> N0ctaneDev</a> &
-        <a href="https://github.com/GamesOfNamanInc" target="_blank" style={{color: `color-mix(in srgb, ${_themeColor} 56%, #fff)`}}> GamesOfNamanInc </a>
-      </p>
     </div>
   </>);
 }
